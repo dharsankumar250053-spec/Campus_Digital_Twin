@@ -714,51 +714,141 @@ Dashboard
         language="text"
     )
 
-# ==========================================================
+# =========================================================
 # FLOOR-WISE DIGITAL TWIN
-# ==========================================================
+# =========================================================
+# =========================================================
+# FLOOR-WISE DIGITAL TWIN
+# =========================================================
 
 st.markdown("## 🏢 Floor-wise Digital Twin")
 
-floor = st.selectbox(
-    "Select Building Floor",
-    [
-        "Ground Floor",
-        "1st Floor",
-        "2nd Floor",
-        "3rd Floor",
-        "4th Floor",
-        "5th Floor",
-        "6th Floor",
-        "7th Floor"
-    ]
-)
+# ---------------------------------------------------------
+# FLOOR DATA
+# ---------------------------------------------------------
 
 floor_data = {
-    # ... your existing floor_data ...
+
+    "Ground Floor": {
+        "classrooms": 3,
+        "restrooms": 1,
+        "lifts": 2,
+        "staircases": 3,
+        "type": "Open / Activity Space + Classrooms"
+    },
+
+    "1st Floor": {
+        "classrooms": 3,
+        "restrooms": 1,
+        "lifts": 2,
+        "staircases": 3,
+        "type": "Open / Activity Space + Classrooms"
+    },
+
+    "2nd Floor": {
+        "classrooms": 7,
+        "restrooms": 2,
+        "lifts": 2,
+        "staircases": 3,
+        "type": "Classroom Floor"
+    },
+
+    "3rd Floor": {
+        "classrooms": 7,
+        "restrooms": 2,
+        "lifts": 2,
+        "staircases": 3,
+        "type": "Classroom Floor"
+    },
+
+    "4th Floor": {
+        "classrooms": 7,
+        "restrooms": 2,
+        "lifts": 2,
+        "staircases": 3,
+        "type": "Classroom Floor"
+    },
+
+    "5th Floor": {
+        "classrooms": 7,
+        "restrooms": 2,
+        "lifts": 2,
+        "staircases": 3,
+        "type": "Classroom Floor"
+    },
+
+    "6th Floor": {
+        "classrooms": 7,
+        "restrooms": 2,
+        "lifts": 2,
+        "staircases": 3,
+        "type": "Classroom Floor"
+    },
+
+    "7th Floor": {
+        "classrooms": 7,
+        "restrooms": 2,
+        "lifts": 2,
+        "staircases": 3,
+        "type": "Classroom Floor"
+    }
 }
 
-data = floor_data[floor]
+# ---------------------------------------------------------
+# FLOOR SELECTION
+# ---------------------------------------------------------
 
-col1, col2, col3, col4 = st.columns(4)
-
-with col1:
-    st.metric("Classrooms", data["classrooms"])
-
-with col2:
-    st.metric("Restrooms", data["restrooms"])
-
-with col3:
-    st.metric("Lifts", data["lifts"])
-
-with col4:
-    st.metric("Staircases", data["staircases"])
-
-st.info(
-    f"**{floor}** — {data['type']}"
+floor = st.selectbox(
+    "Select Building Floor",
+    options=list(floor_data.keys())
 )
 
+# ---------------------------------------------------------
+# GET SELECTED FLOOR DATA
+# ---------------------------------------------------------
 
+data = floor_data.get(floor)
+
+# ---------------------------------------------------------
+# DISPLAY FLOOR INFORMATION
+# ---------------------------------------------------------
+
+if data:
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    with col1:
+        st.metric(
+            label="Classrooms",
+            value=data["classrooms"]
+        )
+
+    with col2:
+        st.metric(
+            label="Restrooms",
+            value=data["restrooms"]
+        )
+
+    with col3:
+        st.metric(
+            label="Lifts",
+            value=data["lifts"]
+        )
+
+    with col4:
+        st.metric(
+            label="Staircases",
+            value=data["staircases"]
+        )
+
+    # Floor description
+    st.info(
+        f"**{floor}** — {data['type']}"
+    )
+
+else:
+
+    st.error("Floor information unavailable.")
 # ==========================================================
 # RESOURCE TRENDS
 # ==========================================================
